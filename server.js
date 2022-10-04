@@ -5,7 +5,7 @@ const nodemailer = require("nodemailer");
 const multer = require("multer");
 const fs = require("fs");
 
-app.use(cors({origin: process.env.ENVIRONMENT === 'production' ? 'https://email-attachment-sender.onrender.com' : 'http://localhost:3000'}));
+app.use(cors());
 
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
