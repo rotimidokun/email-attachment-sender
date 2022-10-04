@@ -79,6 +79,14 @@ app.post("/sendEmail", upload.single("attachments"), (req, res) => {
     } else {
       console.log("Email sent: " + info.response);
       res.json({ status: "ok", data: info });
+
+      fs.unlink(path, function(err) {
+        if(err) {
+          return res.end(err)
+        } else {
+          console.log("deleted")
+        }
+      })
     }
   });
 });
