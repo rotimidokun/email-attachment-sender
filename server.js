@@ -31,7 +31,8 @@ const transporter = nodemailer.createTransport({
 });
 
 app.post("/sendEmail", upload.array("attachments"), (req, res) => {
-  const { name, email, organization } = req.body;
+  console.log('req', req);
+  const { name, email, organization } = JSON.parse(req.body);
   let attachments = [];
   for (let i = 0; i < req.files.length; i++) {
     let fileDetails = {
