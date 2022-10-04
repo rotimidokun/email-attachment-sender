@@ -34,17 +34,19 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-app.post("/sendEmail", upload.array("attachments"), (req, res) => {
+app.post("/sendEmail", upload.single("attachments"), (req, res) => {
   console.log('req', req.body);
   const { name, email, organization } = req.body;
-  let attachments = [];
-  for (let i = 0; i < req.files.length; i++) {
-    let fileDetails = {
-      filename: req.files[i].filename,
-      path: req.files[i].path,
-    };
-    attachments.push(fileDetails);
-  }
+
+  console.log(req.file.path, 'path')
+  // let attachments = [];
+  // for (let i = 0; i < req.files.length; i++) {
+  //   let fileDetails = {
+  //     filename: req.files[i].filename,
+  //     path: req.files[i].path,
+  //   };
+  //   attachments.push(fileDetails);
+  // }
   var mailOptions = {
     from: "cloudgadgets.ng@gmail.com",
     to: "rotimidokun@gmail.com",
@@ -54,9 +56,14 @@ app.post("/sendEmail", upload.array("attachments"), (req, res) => {
     <h1>${email}</h1>
     <h1>${organization}</h1>
     `,
-    attachments: attachments,
+    attachments: [
+      {
+       path: req.file.path
+      }
+   ],
   };
-
+  
+  // console.log('attachments', attachments.filename);
   // var mailOptions = {
   //   from: "cloudgadgets.ng@gmail.com",
   //   to: "rotimidokun@gmail.com",
