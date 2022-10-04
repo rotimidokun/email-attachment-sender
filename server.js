@@ -5,6 +5,7 @@ const nodemailer = require("nodemailer");
 const multer = require("multer");
 const fs = require("fs");
 
+app.use(express.json());
 app.use(cors());
 
 const storage = multer.diskStorage({
