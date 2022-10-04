@@ -4,9 +4,12 @@ const cors = require("cors");
 const nodemailer = require("nodemailer");
 const multer = require("multer");
 const fs = require("fs");
+const bodyParser = require('body-parser');
 
 app.use(express.json());
 app.use(cors());
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
