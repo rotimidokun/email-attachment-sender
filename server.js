@@ -24,6 +24,8 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+var uploadMultiple = upload.fields([{ name: 'file1', maxCount: 1 }, { name: 'file2', maxCount: 1 }])
+
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: "465",
@@ -34,11 +36,11 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-app.post("/sendEmail", upload.single("attachments"), (req, res) => {
+app.post("/sendEmail", uploadMultiple, (req, res) => {
   console.log('req', req.body);
   const { name, email, organization } = req.body;
 
-  console.log(req.file.path, 'path')
+  console.log(req.files, 'path')
   // let attachments = [];
   // for (let i = 0; i < req.files.length; i++) {
   //   let fileDetails = {
@@ -47,6 +49,8 @@ app.post("/sendEmail", upload.single("attachments"), (req, res) => {
   //   };
   //   attachments.push(fileDetails);
   // }
+
+  const filesArray = Object.values(req.files);
   var mailOptions = {
     from: "cloudgadgets.ng@gmail.com",
     to: "rotimidokun@gmail.com",
@@ -56,11 +60,7 @@ app.post("/sendEmail", upload.single("attachments"), (req, res) => {
     <h1>${email}</h1>
     <h1>${organization}</h1>
     `,
-    attachments: [
-      {
-       path: req.file.path
-      }
-   ],
+    attachments: filesArray.map(fileArray => fileArray[0]),
   };
   
   // console.log('attachments', attachments.filename);
