@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
-    if (!fs.existsSync(__dirname + "/src/.temp")) {
+    if (!fs.existsSync(__dirname + "./src/.temp")) {
       fs.mkdirSync(__dirname + "./src/.temp");
     }
     callback(null, "./src/.temp");
