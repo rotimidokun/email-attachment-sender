@@ -7,7 +7,7 @@ const fs = require("fs");
 const bodyParser = require("body-parser");
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin: process.env.ENVIRONMENT === 'production' ? 'https://email-attachment-sender.onrender.com' : 'http://localhost:3000'}));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
