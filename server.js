@@ -58,11 +58,11 @@ app.post("/sendEmail", uploadMultiple, (req, res) => {
   var mailOptions = {
     from: "cloudgadgets.ng@gmail.com",
     to: "rotimidokun@gmail.com",
-    subject: "Testing Sample DIH Application Submission",
-    html: `<h1>New Submission by Test User!</h1> 
-    <h1>${name}</h1>
-    <h1>${email}</h1>
-    <h1>${organization}</h1>
+    subject: `New DIH Application from ${organization}`,
+    html: ` 
+    <h1>Name of the (lead) applicant: ${name}</h1>
+    <h1>Name of proposed Digital Innovation Hub: ${organization}</h1>
+    <h1>Email address of contact person: ${email}</h1>
     `,
     attachments: filesArray.map((fileArray) => fileArray[0]),
   };
