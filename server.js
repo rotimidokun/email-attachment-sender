@@ -57,7 +57,7 @@ app.post("/sendEmail", uploadMultiple, (req, res) => {
   const filesArray = Object.values(req.files);
   var mailOptions = {
     from: "cloudgadgets.ng@gmail.com",
-    to: "rotimidokun@gmail.com",
+    to: "rotimidokun@gmail.com, emmanuel.oladele@giz.de",
     subject: `New DIH Application from ${organization}`,
     html: ` 
     <h1>Name of the (lead) applicant: ${name}</h1>
