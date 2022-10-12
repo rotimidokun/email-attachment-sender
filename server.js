@@ -5,6 +5,7 @@ const nodemailer = require("nodemailer");
 const multer = require("multer");
 const fs = require("fs");
 const bodyParser = require("body-parser");
+require("dotenv").config();
 
 app.use(express.json());
 app.use(cors());
@@ -35,8 +36,8 @@ const transporter = nodemailer.createTransport({
   port: "465",
   service: "gmail",
   auth: {
-    user: "rotimidokun@gmail.com",
-    pass: "wtubjyzdbyfwtccl",
+    user: `${process.env.USER_EMAIL}`,
+    pass: `${process.env.USER_PASSWORD}`,
   },
 });
 
@@ -56,8 +57,7 @@ app.post("/sendEmail", uploadMultiple, (req, res) => {
 
   const filesArray = Object.values(req.files);
   var mailOptions = {
-    from: "cloudgadgets.ng@gmail.com",
-    to: "dtc-nigeria@giz.de, emmanuel.oladele@giz.de",
+    to: `${process.env.DESTINATION_EMAIL_1}, ${process.env.DESTINATION_EMAIL_2}`,
     subject: `New DIH Application from ${organization}`,
     html: ` 
     <h1>Name of the (lead) applicant: ${name}</h1>
@@ -96,11 +96,11 @@ app.post("/sendEmail", uploadMultiple, (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.json({status: "200", message: "OK"})
+  res.json({ status: "200", message: "OK" });
 });
 
-app.listen(3000, (err) => {
+app.listen(process.env.PORT, (err) => {
   if (!err) {
-    console.log("Server has started");
+    console.log(`Server has started ${process.env.PORT}`);
   }
 });
