@@ -46,14 +46,6 @@ app.post("/sendEmail", uploadMultiple, (req, res) => {
   const { name, email, organization } = req.body;
 
   console.log(req.files, "path");
-  // let attachments = [];
-  // for (let i = 0; i < req.files.length; i++) {
-  //   let fileDetails = {
-  //     filename: req.files[i].filename,
-  //     path: req.files[i].path,
-  //   };
-  //   attachments.push(fileDetails);
-  // }
 
   const filesArray = Object.values(req.files);
   var mailOptions = {
@@ -66,15 +58,6 @@ app.post("/sendEmail", uploadMultiple, (req, res) => {
     `,
     attachments: filesArray.map((fileArray) => fileArray[0]),
   };
-
-  // console.log('attachments', attachments.filename);
-  // var mailOptions = {
-  //   from: "cloudgadgets.ng@gmail.com",
-  //   to: "rotimidokun@gmail.com",
-  //   subject: "Testing Sample DIH Application Submission",
-  //   html: "<h1>New Submission by Test User!</h1>",
-  //   attachments: attachments,
-  // };
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
